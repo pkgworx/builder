@@ -1,0 +1,10 @@
+FROM centos:7
+
+# Install dependancies for building and clean up the image.
+RUN yum -y update && \
+    yum -y groupinstall "Development Tools" && \
+    yum -y clean all
+
+# Create the builder user on the system to build un-privileged.
+RUN useradd builder -u 1000 -m -G users,wheel && \
+    echo "builder ALL=(ALL:ALL) NOPASSWD:ALL" >> /etc/sudoers
